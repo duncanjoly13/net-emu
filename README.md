@@ -8,7 +8,7 @@ $ python3 topo.py
 ```
 2. Start the controller:
 ```bash
-$ python3 bandwidth_control.py <interface> <trace file> <latency>
+$ sudo python3 bandwidth_control.py <interface> <trace file> <latency>
 ```
 3. Test latency in the mininet console:
 ```bash

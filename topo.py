@@ -39,7 +39,7 @@ def create_topology() -> None:
 
     info('*** Network started.\n\n')
     info('*** Run the bandwidth control script in a separate terminal.\n')
-    info('*** Example: sudo python bandwidth_control.py s1-eth2 trace.csv 50\n')  # Assuming h2 is on s1-eth2
+    info('*** Example: sudo python3 bandwidth_control.py s1-eth2 trace.csv 50\n')  # Assuming h2 is on s1-eth2
 
     # Start the Mininet Command Line Interface
     CLI(net)

@@ -114,8 +114,8 @@ def change_bandwidth(interface: str, rate_kbps: int) -> None:
 if __name__ == "__main__":
     # Re-add optional latency argument
     if len(sys.argv) < 3 or len(sys.argv) > 4:
-        print("Usage: sudo python bandwidth_control.py <interface> <trace_file.csv> [latency_ms]")
-        print("Example: sudo python bandwidth_control.py s1-eth2 throughput_trace.csv 50")
+        print("Usage: sudo python3 bandwidth_control.py <interface> <trace_file.csv> [latency_ms]")
+        print("Example: sudo python3 bandwidth_control.py s1-eth2 throughput_trace.csv 50")
         sys.exit(1)
 
     interface = sys.argv[1]
