@@ -1,7 +1,7 @@
 """
 trace_converter.py: trace file converter script
 
-Converts a CSV file with time and throughput data into the format taken by bandwidth_control.py.
+Converts a CSV file with throughput data into the format taken by bandwidth_control.py.
 """
 
 import sys
@@ -11,7 +11,7 @@ def convert(input_file: str, output_file: str) -> None:
     """
     Converts a CSV file with time and throughput data into the format taken by bandwidth_control.py.
 
-    :param input_file: input CSV file containing throughput data with time offset of one second per line
+    :param input_file: input CSV file containing throughput data (Mbps) with time offset of one second per line
     :param output_file: output CSV file to write the converted data
     """
     with open(input_file) as infile, open(output_file, 'w') as outfile:
