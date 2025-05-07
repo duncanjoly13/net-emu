@@ -110,26 +110,21 @@ def change_bandwidth(interface: str, rate_kbps: int) -> None:
     run_tc_command(f"class change dev {interface} parent 1: classid 1:1 htb rate {rate_kbit}kbit burst {burst_bytes}")
     print(f"Changed bandwidth on {interface} to {rate_kbit}kbit")
 
+def main(interface: str, trace_file: str, latency: str) -> None:
+    """
+    Main function to run complete trace.
 
-if __name__ == "__main__":
-    # Re-add optional latency argument
-    if len(sys.argv) < 3 or len(sys.argv) > 4:
-        print("Usage: sudo python3 bandwidth_control.py <interface> <trace_file.csv> [latency_ms]")
-        print("Example: sudo python3 bandwidth_control.py s1-eth2 throughput_trace.csv 50")
-        sys.exit(1)
-
-    interface = sys.argv[1]
-    trace_file = sys.argv[2]
-    # Parse latency argument or use default
-    latency = sys.argv[3] + "ms" if len(sys.argv) == 4 else DEFAULT_LATENCY_MS
-
+    :param interface: Network interface to apply the settings to.
+    :param trace_file: File containing network trace to emulate.
+    :param latency: Target latency in ms.
+    """
     # Register signal handler for cleanup on Ctrl+C
     signal.signal(signal.SIGINT, cleanup_tc)
     signal.signal(signal.SIGTERM, cleanup_tc)
 
     print(f"Starting bandwidth control on interface {interface}")
     print(f"Using trace file: {trace_file}")
-    print(f"Applying fixed latency: {latency}")  # Re-enabled latency message
+    print(f"Applying fixed latency: {latency}")
 
     start_time = time.time()
     last_offset = 0
@@ -192,3 +187,18 @@ if __name__ == "__main__":
     finally:
         # Ensure cleanup happens even if the script ends normally or via error
         cleanup_tc()
+
+
+if __name__ == "__main__":
+    # Re-add optional latency argument
+    if len(sys.argv) < 3 or len(sys.argv) > 4:
+        print("Usage: sudo python3 bandwidth_control.py <interface> <trace_file.csv> [latency_ms]")
+        print("Example: sudo python3 bandwidth_control.py s1-eth2 throughput_trace.csv 50")
+        sys.exit(1)
+
+    interface = sys.argv[1]
+    trace_file = sys.argv[2]
+    # Parse latency argument or use default
+    latency = sys.argv[3] + "ms" if len(sys.argv) == 4 else DEFAULT_LATENCY_MS
+
+    main(interface, trace_file, latency)
